@@ -15,6 +15,7 @@ import org.apache.commons.csv.CSVRecord;
 import net.unstream.aitrader.strategies.After3IncreasesStrategy;
 import net.unstream.aitrader.strategies.AfterOneIncreasesStrategy;
 import net.unstream.aitrader.strategies.InverseStrategy;
+import net.unstream.aitrader.strategies.CrashDetectionStrategy;;
 
 
 public class AITrader {
@@ -24,7 +25,7 @@ public class AITrader {
 
 		Account myAccount = Account.builder()
 				.cash(1000)
-				.strategy(new InverseStrategy())
+				.strategy(new CrashDetectionStrategy())
 				.build();
 		
 		Reader in = new InputStreamReader(is);
