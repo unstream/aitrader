@@ -182,12 +182,6 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
