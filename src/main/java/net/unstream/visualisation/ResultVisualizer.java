@@ -1,8 +1,16 @@
 package net.unstream.visualisation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -22,11 +30,6 @@ public class ResultVisualizer extends ApplicationFrame {
 	*/
 	private static final long serialVersionUID = 1L;
 
-	
-	
-	
-	
-	
 	/**
 	 * Constructs the demo application.
 	 *
@@ -37,8 +40,8 @@ public class ResultVisualizer extends ApplicationFrame {
 			String strategy2Name, List<DataPoint> strategy1DataPointList, List<DataPoint> strategy2DataPointList) {
 
 		super(title);
-		
-		XYDataset dataset = createDataset(strategy1Name, strategy2Name,strategy1DataPointList, strategy2DataPointList);
+
+		XYDataset dataset = createDataset(strategy1Name, strategy2Name, strategy1DataPointList, strategy2DataPointList);
 		JFreeChart chart = ChartFactory.createXYLineChart(title, xAxisName, yAxisName, dataset,
 				PlotOrientation.VERTICAL, true, false, false);
 		XYPlot plot = (XYPlot) chart.getPlot();
@@ -91,28 +94,60 @@ public class ResultVisualizer extends ApplicationFrame {
 	// ****************************************************************************
 
 	/**
+	 * 
+	 * @param csvResultFile
+	 *            - the csv result file
+	 * @return - a list of datapoints to plot (x=time / y=balance)
+	 * @throws IOException 
+	 */
+	private static List<DataPoint> readCSVResultFile(File csvResultFile) throws IOException {
+		Reader reader = new FileReader(csvResultFile);
+		CSVParser csvParser = new CSVParser(reader,
+				CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+
+		DataPoint dataPoint;
+		List<DataPoint> dataPointList = new ArrayList<>();
+
+		for (CSVRecord csvRecord : csvParser) {
+			// Accessing values by Header names
+			String time = csvRecord.get("time");
+			String balance = csvRecord.get("balance");
+			String dax = csvRecord.get("dax");
+
+			dataPoint = new DataPoint(Integer.valueOf(time), Double.valueOf(balance));
+			dataPointList.add(dataPoint);
+		}
+
+		return dataPointList;
+	}
+
+	/**
 	 * Starting point for the demonstration application.
 	 *
 	 * @param args
 	 *            ignored.
+	 * @throws IOException 
 	 */
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws IOException {
+
+		/* set here the csv filenames to plot */
+		String CSVResultFilename1 = "CrashDetectionStrategy.csv";
+		String CSVResultFilename2 = "ZyclicStrategy.csv";
+		String CSVResultFilePath="src/main/resources/";
+		
+		File CSVResultFile1 = new File(CSVResultFilePath+CSVResultFilename1);
+		File CSVResultFile2=new File(CSVResultFilePath+CSVResultFilename2);
+
+		
+		
 		List<DataPoint> series1DataPointList = new ArrayList<>();
 		List<DataPoint> series2DataPointList = new ArrayList<>();
 		
-		//read in data strategy 1
-		for (int count=0;count<10000;count++){
-			series1DataPointList.add(new DataPoint(count,2000+2*count));
-		}
-		
-		//read in data strategy 2
-		for (int count=0;count<10000;count++){
-			series2DataPointList.add(new DataPoint(count,2*count));
-		}
-		
-		
-		final ResultVisualizer demo = new ResultVisualizer("Guthabenentwicklung", "Zeit", "Guthaben in €", "Halten",
-				"Neuonales Netz",series1DataPointList, series2DataPointList);
+		series1DataPointList=readCSVResultFile(CSVResultFile1);
+		series2DataPointList=readCSVResultFile(CSVResultFile2);
+
+		final ResultVisualizer demo = new ResultVisualizer("Guthabenentwicklung", "Zeit", "Guthaben in €", CSVResultFilename1,
+				CSVResultFilename2, series1DataPointList, series2DataPointList);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
