@@ -146,7 +146,7 @@ public class ResultVisualizer extends ApplicationFrame {
 		series1DataPointList=readCSVResultFile(CSVResultFile1);
 		series2DataPointList=readCSVResultFile(CSVResultFile2);
 
-		final ResultVisualizer demo = new ResultVisualizer("Guthabenentwicklung", "Zeit", "Guthaben in €", CSVResultFilename1,
+		final ResultVisualizer demo = new ResultVisualizer("Guthabenentwicklung", "Zeit", "Guthaben in â‚¬", CSVResultFilename1,
 				CSVResultFilename2, series1DataPointList, series2DataPointList);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
