@@ -1,10 +1,9 @@
 package net.unstream.aitrader;
 
-import java.util.Date;
-
-import lombok.Data;
-import lombok.Getter;
 import lombok.Builder;
+import lombok.Getter;
+
+import java.util.Date;
 
 @Getter
 @Builder

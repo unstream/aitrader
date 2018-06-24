@@ -1,8 +1,8 @@
 package net.unstream.aitrader.strategies;
 
-import java.util.List;
-
 import net.unstream.aitrader.DaxData;
+
+import java.util.List;
 
 /**
  * We only invest when the dax has increased yesterday.

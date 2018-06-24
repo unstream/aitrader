@@ -1,5 +1,11 @@
 package net.unstream.aitrader;
 
+import net.unstream.aitrader.strategies.CrashDetectionStrategy;
+import net.unstream.aitrader.strategies.KI1Strategy;
+import net.unstream.aitrader.strategies.KI2Strategy;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,13 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
-
-import net.unstream.aitrader.strategies.After3IncreasesStrategy;
-import net.unstream.aitrader.strategies.AfterOneIncreasesStrategy;
-import net.unstream.aitrader.strategies.InverseStrategy;
-import net.unstream.aitrader.strategies.CrashDetectionStrategy;;
+;
 
 
 public class AITrader {
@@ -25,16 +25,17 @@ public class AITrader {
 
 		Account myAccount = Account.builder()
 				.cash(1000)
-				.strategy(new CrashDetectionStrategy())
+				.strategy(new KI2Strategy())
 				.build();
 		
 		Reader in = new InputStreamReader(is);
 		Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader().parse(in);
-		List<DaxData> dax = new ArrayList<DaxData>(); 
+		List<DaxData> dax = new ArrayList<DaxData>();
+		int i = 0;
 		for (CSVRecord record : records) {
-			
+
 			tradeForTheDay(myAccount, dax);
-			
+
 			String dateText = record.get("Date");
 		    String open = record.get("Open");
 		    SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
@@ -47,12 +48,13 @@ public class AITrader {
 			} catch (NumberFormatException | ParseException e) {
 				continue;
 			}
-		    
+
 			updateAccount(myAccount, dax);
 			System.out.println("Dax: " + dax.get(dax.size() - 1).getOpen());
 			System.out.println("Balance: " + myAccount.balance());
-		    
+
 		}
+		System.out.println("Dax.size(): " + dax.size());
 	}
 	
 	public void updateAccount(Account account, List<DaxData> dax) {
@@ -64,10 +66,14 @@ public class AITrader {
 	}
 
 	public void tradeForTheDay(Account myAccount, List<DaxData> dax) {
-		if (myAccount.getStrategy().invest(dax)) {
+		if (dax.size() < 4000 ) { //4000
 			myAccount.invest();
 		} else {
-			myAccount.cashout();
+			if (myAccount.getStrategy().invest(dax)) {
+				myAccount.invest();
+			} else {
+				myAccount.cashout();
+			}
 		}
 	}
 

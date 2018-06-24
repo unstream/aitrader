@@ -1,12 +1,12 @@
 package net.unstream.aitrader;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.gen5.api.BeforeAll;
+import org.junit.gen5.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.gen5.api.BeforeAll;
-import org.junit.gen5.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AITraderTest {
 	private static List<DaxData> dax;

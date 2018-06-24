@@ -1,8 +1,8 @@
 package net.unstream.aitrader.strategies;
 
-import java.util.List;
-
 import net.unstream.aitrader.DaxData;
+
+import java.util.List;
 
 /**
  * Indicators for a crash: Huge decline in the last 3 days.

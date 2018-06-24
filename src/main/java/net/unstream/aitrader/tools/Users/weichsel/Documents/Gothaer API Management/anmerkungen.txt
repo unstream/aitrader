@@ -1,0 +1,12 @@
+https://cloud.spring.io/spring-cloud-gateway
+ist Alternative zu  Spring Cloud Netflix Zuul
+
+
+https://engineering.opsgenie.com/comparing-api-gateway-performances-nginx-vs-zuul-vs-spring-cloud-gateway-vs-linkerd-b2cc59c65369
+https://github.com/openapitools/openapi-generator
+
+https://piotrminkowski.wordpress.com/tag/spring-cloud-gateway/
+
+Consumer Driven Contracts
+https://github.com/spring-cloud/spring-cloud-contract
+
