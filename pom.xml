@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.unstream</groupId>
@@ -24,10 +23,9 @@
 			<version>${dl4j.version}</version>
 		</dependency>
 
-		<!--
-        ND4J backend: every project needs one of these. The backend defines the hardware on which network training
-        will occur. "nd4j-native-platform" is for CPUs only (for running on all operating systems).
-        -->
+		<!-- ND4J backend: every project needs one of these. The backend defines 
+			the hardware on which network training will occur. "nd4j-native-platform" 
+			is for CPUs only (for running on all operating systems). -->
 		<dependency>
 			<groupId>org.nd4j</groupId>
 			<artifactId>nd4j-native-platform</artifactId>
@@ -48,18 +46,24 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.junit.jupiter</groupId>
-		    <artifactId>junit-jupiter-api</artifactId>
-		    <version>5.2.0</version>
-		    <scope>test</scope>
-		</dependency>		
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.2.0</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.junit</groupId>
 			<artifactId>junit5-engine</artifactId>
 			<version>5.0.0-ALPHA</version>
-		    <scope>test</scope>
+			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.14</version>
+		</dependency>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -82,15 +86,11 @@
 			</plugin>
 
 
-			<!--
-            Maven shade plugin configuration: this is required so that if you build a single JAR file (an "uber-jar")
-            it will contain all the required native libraries, and the backends will work correctly.
-            Used for example when running the following commants
-
-            mvn package
-            cd target
-            java -cp deeplearning4j-examples-1.0.0-beta-bin.jar org.deeplearning4j.LenetMnistExample
-            -->
+			<!-- Maven shade plugin configuration: this is required so that if you 
+				build a single JAR file (an "uber-jar") it will contain all the required 
+				native libraries, and the backends will work correctly. Used for example 
+				when running the following commants mvn package cd target java -cp deeplearning4j-examples-1.0.0-beta-bin.jar 
+				org.deeplearning4j.LenetMnistExample -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -120,11 +120,14 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>reference.conf</resource>
 								</transformer>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 								</transformer>
 							</transformers>
 						</configuration>
