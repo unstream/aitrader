@@ -3,6 +3,7 @@ package net.unstream.aitrader;
 import net.unstream.aitrader.strategies.CrashDetectionStrategy;
 import net.unstream.aitrader.strategies.KI1Strategy;
 import net.unstream.aitrader.strategies.KI2Strategy;
+import net.unstream.aitrader.strategies.KI4Strategy;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
