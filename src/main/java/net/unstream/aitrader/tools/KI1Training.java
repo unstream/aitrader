@@ -3,7 +3,6 @@ package net.unstream.aitrader.tools;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.deeplearning4j.eval.Evaluation;
-import org.deeplearning4j.eval.EvaluationBinary;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
@@ -20,7 +19,6 @@ import org.nd4j.linalg.dataset.api.preprocessor.serializer.NormalizerSerializer;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Sgd;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-import org.nd4j.weightinit.WeightInit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +32,8 @@ import java.util.List;
 /**
  * Extarct training data sets from the dax data files.
  */
-public class ExtractTrainingData {
-	private static Logger log = LoggerFactory.getLogger(ExtractTrainingData.class);
+public class KI1Training {
+	private static Logger log = LoggerFactory.getLogger(KI1Training.class);
 
 	private static final int ROWS_NEARTERM = 50;
 	private static final int ROWS_LONGTERM = 50;
@@ -50,7 +48,7 @@ public class ExtractTrainingData {
 
 		// Read all the Data
 		List<Double> values = readOpeningValues();
-		int rows = values.size() / 2 - ROWS_NEARTERM - 1;
+		int rows = values.size() / 2  - ROWS_NEARTERM - 1;
 		double [][] f = new double [rows][ROWS_NEARTERM];
 		double [][] l = new double [rows][2];
 		for (int i = 0; i < rows; i++) {
@@ -112,7 +110,7 @@ public class ExtractTrainingData {
 		model.init();
 		model.setListeners(new ScoreIterationListener(10));
 
-		for(int i=0; i<1000; i++ ) {
+		for(int i=0; i<10000; i++ ) {
 			model.fit(trainingData);
 		}
 
@@ -164,7 +162,7 @@ public class ExtractTrainingData {
 
 	
 	public static void main(String[] args) throws IOException {
-		ExtractTrainingData trainer = new ExtractTrainingData();
+		KI1Training trainer = new KI1Training();
 		trainer.train();
 	}
 

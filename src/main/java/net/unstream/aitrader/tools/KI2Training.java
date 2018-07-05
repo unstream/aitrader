@@ -106,9 +106,9 @@ public class KI2Training {
 		//run the model
 		MultiLayerNetwork model = new MultiLayerNetwork(conf);
 		model.init();
-		model.setListeners(new ScoreIterationListener(10));
+		model.setListeners(new ScoreIterationListener(100));
 
-		for(int i=0; i<1000; i++ ) {
+		for(int i=0; i<8000; i++ ) {
 			model.fit(trainingData);
 		}
 

@@ -131,8 +131,9 @@ public class ResultVisualizer extends ApplicationFrame {
 	public static void main(final String[] args) throws IOException {
 
 		/* set here the csv filenames to plot */
-		String CSVResultFilename1 = "CrashDetectionStrategy.csv";
-		String CSVResultFilename2 = "ZyclicStrategy.csv";
+		String CSVResultFilename1 = "BuyAndHoldStrategy.csv";
+		String CSVResultFilename2 = "KI2Strategy.csv";
+		//String CSVResultFilename3 = "KI2Strategy.csv";
 		String CSVResultFilePath="src/main/resources/";
 		
 		File CSVResultFile1 = new File(CSVResultFilePath+CSVResultFilename1);
@@ -142,7 +143,7 @@ public class ResultVisualizer extends ApplicationFrame {
 		
 		List<DataPoint> series1DataPointList = new ArrayList<>();
 		List<DataPoint> series2DataPointList = new ArrayList<>();
-		
+
 		series1DataPointList=readCSVResultFile(CSVResultFile1);
 		series2DataPointList=readCSVResultFile(CSVResultFile2);
 
